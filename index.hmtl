@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#1A237E" />
+<meta name="description" content="FACN — Escola de Condução. Formando condutores com segurança e responsabilidade. Inscrição grátis. Formação por 250.000 Kz em 2 prestações." />
+<title>FACN — Escola de Condução | Inscreva-se Grátis</title>
+
+<!-- PWA e Favicon -->
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='white' stroke='%231A237E' stroke-width='4'/%3E%3Ccircle cx='50' cy='50' r='38' fill='none' stroke='%231A237E' stroke-width='2'/%3E%3Ctext x='50' y='58' font-family='Arial' font-weight='bold' font-size='28' fill='%231A237E' text-anchor='middle'%3EFACN%3C/text%3E%3C/svg%3E" />
+
+<!-- Fontes -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --rosa-flyer:#bd1158;
+  --rosa-vibrante:#e91e63;
+  --rosa-claro:#fce4ec;
+  --azul-logo:#1A237E;
+  --azul-claro:#3f51b5;
+  
+  --branco:#ffffff;
+  --preto:#1a1a1a;
+  --cinza:#555555;
+
+  --sombra-suave: 0 8px 30px rgba(189, 17, 88, 0.08);
+  --sombra-media: 0 15px 35px rgba(189, 17, 88, 0.15);
+  --sombra-forte: 0 25px 50px rgba(189, 17, 88, 0.25);
+
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 30px;
+  --radius-full: 999px;
+
+  --font-heading:'Montserrat', sans-serif;
+  --font-body:'Poppins', system-ui, sans-serif;
+
+  --transicao: .4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============ RESET ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  color:var(--preto);
+  background:linear-gradient(135deg, #fff0f5 0%, #ffe4ec 100%);
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+
+/* ============ PÉTALAS ============ */
+.petals-container {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0; overflow: hidden;
+}
+.petal {
+  position: absolute; background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+  border-radius: 15px 0 15px 0; opacity: 0.6; animation: fall linear infinite;
+}
+@keyframes fall {
+  0% { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { transform: translateY(110vh) rotate(360deg) translateX(100px); opacity: 0; }
+}
+.petal:nth-child(1) { left: 10%; width: 15px; height: 15px; animation-duration: 12s; animation-delay: 0s; }
+.petal:nth-child(2) { left: 30%; width: 20px; height: 20px; animation-duration: 16s; animation-delay: -3s; }
+.petal:nth-child(3) { left: 50%; width: 12px; height: 12px; animation-duration: 10s; animation-delay: -7s; }
+.petal:nth-child(4) { left: 75%; width: 18px; height: 18px; animation-duration: 14s; animation-delay: -1s; }
+.petal:nth-child(5) { left: 90%; width: 14px; height: 14px; animation-duration: 18s; animation-delay: -5s; }
+
+/* ============ HEADER ============ */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255, 255, 255, 0.85);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,0.5);
+  transition:var(--transicao);
+}
+header.scrolled{box-shadow:var(--sombra-suave); background:rgba(255, 255, 255, 0.95);}
+.nav{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 24px;}
+.logo{ display:flex; align-items:center; gap:12px; }
+.logo-svg { width: 55px; height: 55px; transition: transform 0.5s ease; }
+.logo:hover .logo-svg { transform: rotate(15deg) scale(1.05); }
+.logo-text { display: flex; flex-direction: column; }
+.logo-text strong { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 900; color: var(--azul-logo); line-height: 1; letter-spacing: -1px;}
+.logo-text span { font-size: 0.55rem; font-weight: 700; color: var(--rosa-flyer); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px;}
+
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{font-weight:600;color:var(--preto);font-size:0.95rem;position:relative;}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:0;background:var(--rosa-flyer);transition:var(--transicao);}
+.nav-links a:hover::after{width:100%;}
+.btn-nav{background:var(--azul-logo);color:#fff;padding:10px 22px;border-radius:var(--radius-full);font-weight:700;font-size:0.9rem;transition:var(--transicao); box-shadow: 0 4px 15px rgba(26,35,126,0.3);}
+.btn-nav:hover{transform:translateY(-2px); background:var(--azul-claro); box-shadow: 0 8px 20px rgba(26,35,126,0.4);}
+
+/* ============ HERO ============ */
+.hero{padding:70px 24px 90px;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;}
+.hero-text h1{font-family:var(--font-heading);font-size:clamp(2.2rem,4.5vw,3.6rem);font-weight: 900;line-height:1.1;color:var(--azul-logo);margin-bottom:24px;letter-spacing: -1px;text-transform: uppercase;}
+.hero-text h1 span{color:var(--rosa-flyer); display: inline-block;}
+.hero-text p{font-size:1.05rem;color:var(--cinza);max-width:520px;margin-bottom:36px;}
+
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:40px;}
+.btn-primary{background:linear-gradient(90deg, var(--rosa-flyer), var(--rosa-vibrante), var(--rosa-flyer));background-size: 200% auto; color:#fff;padding:16px 32px;border-radius:var(--radius-full);font-weight:700;font-size:1rem;box-shadow:var(--sombra-media);transition:var(--transicao);display:inline-flex;align-items:center;gap:10px;animation: shine 3s linear infinite;}
+@keyframes shine { to { background-position: 200% center; } }
+.btn-primary:hover{transform:translateY(-4px) scale(1.02);box-shadow:var(--sombra-forte);}
+
+.btn-whatsapp{background:#25D366;color:#fff;padding:16px 32px;border-radius:var(--radius-full);font-weight:700;font-size:1rem;box-shadow:0 10px 25px rgba(37,211,102,0.3);transition:var(--transicao);display:inline-flex;align-items:center;gap:10px;}
+.btn-whatsapp:hover{transform:translateY(-4px) scale(1.02); box-shadow:0 15px 35px rgba(37,211,102,0.4);}
+
+.hero-stats{display:flex;gap:30px;flex-wrap:wrap;}
+.stat strong{display:block;font-family:var(--font-heading);font-size:1.8rem;color:var(--rosa-flyer);line-height:1; font-weight: 800;}
+.stat span{font-size:0.85rem;color:var(--cinza);font-weight: 500;}
+
+/* ============ CARTÃO DE PREÇO ============ */
+.hero-card{position:relative; background:#fff; border-radius:var(--radius-md); padding:40px 32px;box-shadow:var(--sombra-forte); border: 1px solid rgba(233,30,99,0.1);transition: transform 0.1s ease-out;}
+.hero-card::before{content:"";position:absolute;top:-15px;left:-15px;right:-15px;bottom:-15px;background:linear-gradient(135deg, var(--rosa-claro), transparent); z-index:-1; border-radius:var(--radius-lg);}
+.tag-gratis {background: var(--rosa-flyer); color: #fff; font-family: var(--font-heading); font-weight: 800;font-size: 0.8rem; padding:8px 18px; border-radius: var(--radius-full); display: inline-block;letter-spacing: 1px; margin-bottom: 16px; text-transform: uppercase; box-shadow: 0 4px 10px rgba(189,17,88,0.3);}
+.hero-card h3{font-family:var(--font-heading);font-size:1.1rem;color:var(--azul-logo);margin-bottom:10px; text-transform: uppercase; font-weight: 800;}
+.price-tag {background: var(--rosa-flyer); color: #fff; padding: 10px 20px;clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%); display: inline-block; margin-bottom: 10px;}
+.price-tag .price { font-family: var(--font-heading); font-size: 2.6rem; font-weight: 900; line-height: 1; }
+.price-tag .price small { font-size: 1.1rem; font-weight: 700; }
+.prestacao { font-size: 0.9rem; color: var(--rosa-flyer); font-weight: 700; margin-bottom: 20px; border-bottom: 2px dashed var(--rosa-claro); padding-bottom: 15px; }
+
+.hero-card ul{display:grid;gap:10px; margin-bottom: 24px;}
+.hero-card li{display:flex;gap:10px;align-items:flex-start;font-size:0.9rem;color:var(--preto); font-weight: 500;}
+.hero-card li span.icon { color: var(--rosa-flyer); flex-shrink: 0; font-weight: bold;}
+
+/* ============ SECÇÕES ============ */
+section{padding:80px 24px;}
+.container{max-width:1280px;margin:0 auto;}
+.section-head{text-align:center;max-width:680px;margin:0 auto 50px;}
+.section-head h2{font-family:var(--font-heading);font-size:clamp(1.8rem,3vw,2.5rem);color:var(--azul-logo);line-height:1.2;margin-bottom:16px; font-weight: 900; text-transform: uppercase;}
+.section-head p{color:var(--cinza);font-size:1rem;}
+
+/* ============ CATEGORIAS ============ */
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.cat-card{background:#fff; border-radius:var(--radius-md); padding:36px 24px; text-align:center;box-shadow:var(--sombra-suave); transition:var(--transicao); border: 2px solid transparent; position: relative; overflow: hidden;}
+.cat-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--rosa-flyer); transform: scaleX(0); transition: var(--transicao); transform-origin: left;}
+.cat-card:hover{transform:translateY(-8px);box-shadow:var(--sombra-media); border-color: var(--rosa-claro);}
+.cat-card:hover::before { transform: scaleX(1); }
+.cat-icon{width:70px;height:70px;border-radius:50%;margin:0 auto 20px;display:grid;place-items:center;background:var(--rosa-claro); color:var(--rosa-flyer); font-size:2rem; transition:var(--transicao);}
+.cat-card:hover .cat-icon{background:var(--rosa-flyer); color:#fff; transform: scale(1.1) rotate(5deg);}
+.cat-card h3{font-family:var(--font-heading);font-size:1.3rem;color:var(--azul-logo);margin-bottom:10px; font-weight: 800; text-transform: uppercase;}
+.cat-card p{font-size:0.9rem;color:var(--cinza);}
+
+/* ============ FAQ ============ */
+.faq-grid { display: grid; gap: 16px; max-width: 800px; margin: 0 auto; }
+.faq-item { background: #fff; border-radius: var(--radius-sm); box-shadow: var(--sombra-suave); overflow: hidden; }
+.faq-question {width: 100%; text-align: left; padding: 20px; font-weight: 700; font-size: 1.05rem; color: var(--azul-logo);display: flex; justify-content: space-between; align-items: center; transition: background 0.3s;}
+.faq-question:hover { background: var(--rosa-claro); }
+.faq-answer { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; color: var(--cinza); font-size: 0.95rem;}
+.faq-item.active .faq-answer { padding: 0 20px 20px; max-height: 200px; }
+.faq-item.active .faq-question { color: var(--rosa-flyer); }
+.faq-icon { font-size: 1.5rem; font-weight: 400; transition: transform 0.4s ease; }
+.faq-item.active .faq-icon { transform: rotate(45deg); }
+
+/* ============ MODAL ============ */
+.modal-overlay {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26, 35, 126, 0.6);backdrop-filter: blur(5px); z-index: 1000; display: flex; justify-content: center; align-items: center;opacity: 0; visibility: hidden; transition: all 0.3s ease;}
+.modal-overlay.active { opacity: 1; visibility: visible; }
+.modal-content {background: #fff; width: 100%; max-width: 500px; border-radius: var(--radius-md); padding: 32px;box-shadow: var(--sombra-forte); position: relative; transform: translateY(20px); transition: all 0.3s ease;max-height: 90vh; overflow-y: auto;}
+.modal-overlay.active .modal-content { transform: translateY(0); }
+.close-modal { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; color: var(--cinza); cursor: pointer; }
+.modal-content h2 { font-family: var(--font-heading); color: var(--azul-logo); margin-bottom: 8px; text-transform: uppercase; font-size: 1.5rem;}
+.modal-content p { font-size: 0.9rem; color: var(--cinza); margin-bottom: 20px; }
+
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 6px; color: var(--preto); }
+.form-group input, .form-group select {width: 100%; padding: 12px; border: 1.5px solid #ddd; border-radius: var(--radius-sm); font-family: inherit; font-size: 0.95rem; transition: border 0.3s;}
+.form-group input:focus, .form-group select:focus { outline: none; border-color: var(--rosa-flyer); }
+.file-upload { border: 2px dashed #ddd; padding: 15px; text-align: center; border-radius: var(--radius-sm); cursor: pointer; transition: border 0.3s; }
+.file-upload:hover { border-color: var(--rosa-flyer); background: var(--rosa-claro); }
+.file-upload input { display: none; }
+.file-upload span { font-size: 0.85rem; color: var(--cinza); }
+.file-name { font-size: 0.8rem; color: var(--rosa-flyer); font-weight: 600; margin-top: 5px; display: block;}
+
+.btn-submit {width: 100%; background: var(--azul-logo); color: #fff; padding: 14px; border-radius: var(--radius-sm);font-weight: 700; font-size: 1rem; margin-top: 10px; transition: background 0.3s;}
+.btn-submit:hover { background: var(--azul-claro); }
+
+/* ============ FOOTER ============ */
+footer{background:var(--azul-logo);color:rgba(255,255,255,0.8);padding:50px 24px 30px;}
+.footer-content { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;}
+footer .logo-text strong { color: #fff; }
+footer .logo-text span { color: var(--rosa-vibrante); }
+footer p { font-size: 0.9rem; }
+
+/* ============ WHATSAPP FLOAT ============ */
+.whatsapp-float{position:fixed;bottom:25px;right:25px;z-index:200;width:60px;height:60px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 10px 25px rgba(37,211,102,0.4);transition:var(--transicao); animation: bounce 2s infinite;}
+.whatsapp-float:hover{transform:scale(1.1);}
+@keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
+
+/* ============ ANIMAÇÕES SCROLL ============ */
+.reveal{opacity:0;transform:translateY(30px);transition:all 0.8s cubic-bezier(0.16, 1, 0.3, 1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ============ MOBILE ============ */
+@media (max-width: 960px){
+  .petals-container { display: none; }
+  .hero{grid-template-columns:1fr;gap:40px;padding:50px 20px;}
+  .cat-grid {grid-template-columns:1fr;}
+  .nav-links{display:none;}
+  .hero-card { max-width: 100%; margin: 0 auto; transform: none !important; }
+  .hero-text h1 { font-size: 2rem; }
+  .footer-content { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="petals-container">
+  <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+  <div class="petal"></div><div class="petal"></div>
+</div>
+
+<header id="header">
+  <nav class="nav">
+    <a href="#" class="logo">
+      <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="46" stroke="var(--azul-logo)" stroke-width="4"/>
+        <circle cx="50" cy="50" r="38" stroke="var(--azul-logo)" stroke-width="2"/>
+        <path d="M 30 50 Q 40 40 40 60" stroke="var(--azul-logo)" stroke-width="3" fill="none"/>
+        <path d="M 23 40 Q 45 40 45 60 Q 45 70 23 70" stroke="var(--azul-logo)" stroke-width="3" fill="none"/>
+        <circle cx="32" cy="55" r="6" fill="var(--azul-logo)"/>
+        <text x="32" y="58" font-family="Arial" font-size="7" fill="white" text-anchor="middle" font-weight="bold">30</text>
+        <rect x="55" y="45" width="14" height="8" rx="2" fill="var(--azul-logo)"/>
+        <circle cx="58" cy="54" r="2" fill="white"/>
+        <circle cx="66" cy="54" r="2" fill="white"/>
+        <path d="M 60 65 L 75 65 L 75 58 L 70 58 L 65 62 L 60 62 Z" fill="var(--azul-logo)"/>
+        <circle cx="62" cy="66" r="2" fill="white"/>
+        <circle cx="72" cy="66" r="2" fill="white"/>
+      </svg>
+      <div class="logo-text">
+        <strong>FACN</strong>
+        <span>Escola de Condução</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#categorias">Cursos</a>
+      <a href="#faq">Dúvidas</a>
+      <a href="#documentos">Documentos</a>
+    </div>
+    <button class="btn-nav" onclick="openModal()">Inscreva-se Grátis</button>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-text reveal">
+    <h1>Formando condutores com <span>segurança</span> e responsabilidade.</h1>
+    <p>A FACN prepara-te para conduzir com confiança em Angola. Formação teórica e prática, instrutores experientes e acompanhamento até à tua carta de condução.</p>
+    <div class="hero-cta">
+      <button onclick="openModal()" class="btn-primary">Inscrever-me Agora</button>
+      <a href="https://wa.me/244923875584?text=Ol%C3%A1!%20Vi%20o%20site%20e%20quero%20saber%20como%20funciona%20a%20inscri%C3%A7%C3%A3o%20gr%C3%A1tis%20e%20o%20pagamento%20em%20presta%C3%A7%C3%B5es." target="_blank" rel="noopener" class="btn-whatsapp">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.2-.7.1s-.8 1-1 1.2c-.2.2-.4.3-.7.1-.3-.1-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.5-.5.2-.2.2-.3.3-.5.1-.2.1-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 2.4 1 2.9.8 3.4.8.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 4.9L2 22l5.2-1.4c1.4.8 3 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+        WhatsApp: 923 875 584
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><strong>+2.500</strong><span>Alunos formados</span></div>
+      <div class="stat"><strong>98%</strong><span>Taxa de aprovação</span></div>
+      <div class="stat"><strong>15 anos</strong><span>De experiência</span></div>
+    </div>
+  </div>
+
+  <div class="hero-card reveal" id="parallax-card">
+    <span class="tag-gratis">Inscrição Grátis</span>
+    <h3>Amador | Profissional | Pesado</h3>
+    
+    <div class="price-tag">
+      <div class="price">250.000 <small>Kz</small></div>
+    </div>
+    
+    <p class="prestacao">Pagamento em duas prestações de 125.000 Kz</p>
+    
+    <ul>
+      <li><span class="icon">✓</span> O valor aplica-se para formação e carta de condução</li>
+      <li><span class="icon">✓</span> Aulas teóricas e práticas</li>
+      <li><span class="icon">✓</span> Simulados de código de estrada</li>
+      <li><span class="icon">✓</span> Acompanhamento até ao exame</li>
+    </ul>
+    <button onclick="openModal()" class="btn-primary" style="width:100%;justify-content:center">Começar Inscrição</button>
+  </div>
+</section>
+
+<section id="categorias" style="background: #fff;">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2>As Nossas Categorias</h2>
+      <p>Escolhe a categoria ideal para o teu futuro profissional.</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card reveal">
+        <div class="cat-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M5 17a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h9l4 4v4a2 2 0 0 1-2 2M7 17v2M17 17v2"/><circle cx="8" cy="13" r="1"/><circle cx="16" cy="13" r="1"/></svg></div>
+        <h3>Amador</h3>
+        <p>Categoria B — para conduzir veículos ligeiros com segurança.</p>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 14h2"/></svg></div>
+        <h3>Profissional</h3>
+        <p>Categoria C — para transporte de passageiros e mercadorias.</p>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17V8a1 1 0 0 1 1-1h10l5 5v5M3 17h2M19 17h2v-3M8 17h8"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg></div>
+        <h3>Pesado</h3>
+        <p>Categoria D — para camiões e veículos de grande tonelagem.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="documentos">
+  <div class="documentos-box reveal" style="background: #fff; border-radius: 20px; padding: 40px; max-width: 800px; margin: 0 auto; box-shadow: var(--sombra-media); text-align: center; border-top: 6px solid var(--rosa-flyer);">
+    <h2 style="font-family: var(--font-heading); color: var(--azul-logo); font-size: 1.8rem; margin-bottom: 20px; font-weight: 900;">Documentos Necessários</h2>
+    <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; font-weight: 600; font-size: 1.1rem;">
+        <svg viewBox="0 0 24 24" width="50" height="50" fill="none" stroke="var(--rosa-flyer)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span>2 Fotos tipo passe</span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; font-weight: 600; font-size: 1.1rem;">
+        <svg viewBox="0 0 24 24" width="50" height="50" fill="none" stroke="var(--rosa-flyer)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>1 Cópia do Bilhete de Identidade</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background: #fff;">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2>Dúvidas Frequentes</h2>
+      <p>Ficaste com alguma dúvida? Respondemos às perguntas mais comuns.</p>
+    </div>
+    <div class="faq-grid reveal">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Como funciona o pagamento em prestações?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>O valor total é de 250.000 Kz, dividido em 2 prestações de 125.000 Kz. A primeira prestação é paga no ato da matrícula e a segunda no início das aulas práticas. Aceitamos Multicaixa Express, Referência Bancária e PayPal.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Quanto tempo demora a formação?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>Em média, o curso demora entre 2 a 3 meses, dependendo da tua disponibilidade para as aulas práticas e da data do exame oficial.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">A escola ajuda no agendamento do exame?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>Sim! A FACN trata de todo o processo burocrático e agendamento do teu exame no centro de exames oficial, garantindo que não perdes nenhum prazo.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="footer-content">
+    <a href="#" class="logo"><div class="logo-text"><strong>FACN</strong><span>Escola de Condução</span></div></a>
+    <p>&copy; 2025 FACN. "Fazer o bem faz bem."</p>
+    <p>Luanda · Angola | WhatsApp: 923 875 584</p>
+  </div>
+</footer>
+
+<a href="https://wa.me/244923875584?text=Ol%C3%A1!%20Quero%20mais%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener" class="whatsapp-float" aria-label="WhatsApp">
+  <svg width="35" height="35" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.2-.7.1s-.8 1-1 1.2c-.2.2-.4.3-.7.1-.3-.1-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.5-.5.2-.2.2-.3.3-.5.1-.2.1-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 2.4 1 2.9.8 3.4.8.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 4.9L2 22l5.2-1.4c1.4.8 3 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+</a>
+
+<div class="modal-overlay" id="inscricaoModal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal()">&times;</span>
+    <h2>Inscrição Grátis</h2>
+    <p>Preenche os teus dados e anexa os documentos. Serás redirecionado para o WhatsApp.</p>
+    
+    <form id="inscricaoForm" onsubmit="enviarWhatsApp(event)">
+      <div class="form-group">
+        <label>Nome Completo</label>
+        <input type="text" id="nome" required placeholder="O teu nome">
+      </div>
+      <div class="form-group">
+        <label>Categoria Pretendida</label>
+        <select id="categoria" required>
+          <option value="Amador (B)">Amador (B)</option>
+          <option value="Profissional (C)">Profissional (C)</option>
+          <option value="Pesado (D)">Pesado (D)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Foto Tipo Passe</label>
+        <label class="file-upload">
+          <input type="file" id="foto" accept="image/*" required onchange="mostrarNome(this)">
+          <span>Clique para anexar a foto</span>
+          <span class="file-name" id="nome-foto"></span>
+        </label>
+      </div>
+      <div class="form-group">
+        <label>Cópia do BI</label>
+        <label class="file-upload">
+          <input type="file" id="bi" accept="image/*,.pdf" required onchange="mostrarNome(this)">
+          <span>Clique para anexar o BI</span>
+          <span class="file-name" id="nome-bi"></span>
+        </label>
+      </div>
+      <button type="submit" class="btn-submit">Enviar e Falar no WhatsApp</button>
+    </form>
+  </div>
+</div>
+
+<script>
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => { header.classList.toggle('scrolled', window.scrollY > 20); });
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+const card = document.getElementById('parallax-card');
+const heroSection = document.querySelector('.hero');
+if(window.innerWidth > 960) {
+  heroSection.addEventListener('mousemove', (e) => {
+    const xAxis = (window.innerWidth / 2 - e.pageX) / 40;
+    const yAxis = (window.innerHeight / 2 - e.pageY) / 40;
+    card.style.transform = `perspective(1000px) rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+  });
+  heroSection.addEventListener('mouseleave', () => { card.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg)`; card.style.transition = "transform 0.5s ease"; });
+  heroSection.addEventListener('mouseenter', () => { card.style.transition = "transform 0.1s ease-out"; });
+}
+
+function toggleFaq(button) {
+  const item = button.parentElement;
+  const isActive = item.classList.contains('active');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+  if (!isActive) item.classList.add('active');
+}
+
+function openModal() { document.getElementById('inscricaoModal').classList.add('active'); }
+function closeModal() { document.getElementById('inscricaoModal').classList.remove('active'); }
+document.getElementById('inscricaoModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+
+function mostrarNome(input) {
+  const fileName = input.files[0] ? input.files[0].name : "";
+  const id = input.id === 'foto' ? 'nome-foto' : 'nome-bi';
+  document.getElementById(id).textContent = fileName;
+}
+
+function enviarWhatsApp(e) {
+  e.preventDefault();
+  const nome = document.getElementById('nome').value;
+  const categoria = document.getElementById('categoria').value;
+  const foto = document.getElementById('foto').files[0] ? "Sim" : "Não";
+  const bi = document.getElementById('bi').files[0] ? "Sim" : "Não";
+  const numeroWhatsApp = "244923875584";
+  const texto = `*Nova Inscrição FACN* %0A%0A*Nome:* ${nome}%0A*Categoria:* ${categoria}%0A*Foto anexada:* ${foto}%0A*BI anexado:* ${bi}%0A%0AOlá! Acabei de preencher o formulário no site. Como procedo com o pagamento?`;
+  
+  window.open(`https://wa.me/${numeroWhatsApp}?text=${texto}`, '_blank');
+  document.getElementById('inscricaoForm').reset();
+  document.querySelectorAll('.file-name').forEach(el => el.textContent = '');
+  closeModal();
+}
+
+// REGISTO DA PWA (Service Worker)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('Service Worker registado com sucesso!', reg.scope))
+      .catch(err => console.log('Erro ao registar Service Worker:', err));
+  });
+}
+</script>
+</body>
+</html>
